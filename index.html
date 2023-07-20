@@ -20,12 +20,17 @@
                 const response = await fetch("https://api.wordpress.org/core/stable-check/1.0/");
                 const versions = await response.json();
                 const versionsStr = JSON.stringify(versions);
-                const indexOfLatest = versionsStr.indexOf('latest');
-                const versionPosition = (indexOfLatest-8);
-                const ver = versionsStr.slice(versionPosition, versionPosition+5)
-                document.title += " " + ver;
+                const regex = /"([^"]+)":"latest"/;
+                const match = versionsStr.match(regex);
                 const target = document.getElementsByTagName("span");
-                target[0].insertAdjacentText("beforeend", ver);
+                if (match) {
+                    let ver = match[1];
+                    document.title += " " + ver;
+                    target[0].insertAdjacentText("beforeend", ver);
+                } else {
+                    let ver ="not found";
+                    target[0].insertAdjacentText("beforeend", ver);
+                }
             }
             showLatest();
         </script>
