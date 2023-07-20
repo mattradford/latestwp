@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>
+            The latest version of WordPress is
+        </title>
+        <link rel="icon" href="/icons/favicon.ico" sizes="any">
+        <link rel="icon" href="/icons/wp.svg" type="image/svg+xml">
+        <link rel="apple-touch-icon" href="/icons/wp-180.png">
+        <link rel="manifest" href="site.webmanifest">
+        <meta name="viewport" content="width=device-width">
+        <meta name="description" content="This is the latest version of WordPress.">
+        <meta property="og:title" content="The latest version of WordPress">
+        <meta property="og:type" content="website">
+        <meta property="og:description" content="This is the latest version of WordPress.">
+        <script async src="latest.js"></script>
+        <style>
+            *:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *)) {
+                all: unset;
+                display: revert;
+            }
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+            }
+            main {
+                height: 100dvh;
+                background-color: #3858e9;
+                color: white;
+                font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
+                text-align: center;
+                display: grid;
+                place-items: center;
+                align-items: center;
+                padding: 1rem;
+                grid-template-rows: 1fr auto;
+            }
+            p {
+                font-size: clamp(1.5rem, -0.875rem + 8.333vw, 2rem);
+            }
+            span {
+                font-weight: bold;
+                display: block;
+                font-size: clamp(4rem, -0.875rem + 8.333vw, 10rem);
+            }
+            footer {
+                align-self: end;
+            }
+            a {
+                cursor: pointer;
+                text-decoration: underline;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <p>The latest version of WordPress is <span></span></p>
+            <footer>
+                a <a href="https://mattrad.uk">mattrad</a> joint
+            </footer>
+        </main>
+    </body>
+</html>
