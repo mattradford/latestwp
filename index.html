@@ -15,7 +15,20 @@
         <meta property="og:title" content="The latest version of WordPress">
         <meta property="og:type" content="website">
         <meta property="og:description" content="This is the latest version of WordPress.">
-        <script async src="latest.js"></script>
+        <script>
+            async function showLatest() {
+                const response = await fetch("https://api.wordpress.org/core/stable-check/1.0/");
+                const versions = await response.json();
+                const versionsStr = JSON.stringify(versions);
+                const indexOfLatest = versionsStr.indexOf('latest');
+                const versionPosition = (indexOfLatest-8);
+                const ver = versionsStr.slice(versionPosition, versionPosition+5)
+                document.title += " " + ver;
+                const target = document.getElementsByTagName("span");
+                target[0].insertAdjacentText("beforeend", ver);
+            }
+            showLatest();
+        </script>
         <style>
             *:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *)) {
                 all: unset;
@@ -38,7 +51,7 @@
                 padding: 1rem;
                 grid-template-rows: 1fr auto;
             }
-            p {
+            p.latest {
                 font-size: clamp(1.5rem, -0.875rem + 8.333vw, 2rem);
             }
             span {
@@ -51,15 +64,21 @@
             }
             a {
                 cursor: pointer;
+            }
+            .colophon a {
                 text-decoration: underline;
+            }
+            .github {
+                padding: 0.5rem;
             }
         </style>
     </head>
     <body>
         <main>
-            <p>The latest version of WordPress is <span></span></p>
+            <p class="latest">The latest version of WordPress is <span></span></p>
             <footer>
-                a <a href="https://mattrad.uk">mattrad</a> joint
+                <p class="colophon">a <a href="https://mattrad.uk">mattrad</a> joint.</p>
+                <p class="github"><a href="https://github.com/mattradford/latestwp"><img src="icons/github-mark-white.svg" height="20" width="20" alt="GitHub logo"></a></p>
             </footer>
         </main>
     </body>
