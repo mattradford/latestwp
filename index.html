@@ -17,18 +17,31 @@
         <meta property="og:description" content="This is the latest version of WordPress.">
         <script>
             async function showLatest() {
-                const response = await fetch("https://api.wordpress.org/core/stable-check/1.0/");
-                const versions = await response.json();
-                const versionsStr = JSON.stringify(versions);
-                const regex = /"([^"]+)":"latest"/;
-                const match = versionsStr.match(regex);
                 const target = document.getElementsByTagName("span");
-                if (match) {
-                    let ver = match[1];
-                    document.title += " " + ver;
-                    target[0].insertAdjacentText("beforeend", ver);
-                } else {
-                    let ver ="not found";
+                let ver = "not found";
+
+                try {
+                    const response = await fetch("https://api.wordpress.org/core/stable-check/1.0/");
+
+                    if (!response.ok) {
+                        throw new Error("Failed to fetch WordPress versions.");
+                    }
+
+                    const versions = await response.json();
+                    const versionsStr = JSON.stringify(versions);
+                    const regex = /"([^"]+)":"latest"/;
+                    const match = versionsStr.match(regex);
+
+                    if (match) {
+                        let ver = match[1];
+                        document.title += " " + ver;
+                        target[0].insertAdjacentText("beforeend", ver);
+                    } else {
+                        target[0].insertAdjacentText("beforeend", ver);
+                    }
+
+                } catch (error) {
+                    console.error("An error occurred:", error);
                     target[0].insertAdjacentText("beforeend", ver);
                 }
             }
