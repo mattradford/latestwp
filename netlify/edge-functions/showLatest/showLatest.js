@@ -12,7 +12,7 @@ export default async (request) => {
 try {
   const ver = await fetchWordPressVersion();
 
-  const data = { latestVersion: ver };
+  const data = { ver };
   const jsonData = JSON.stringify(data);
 
   return new Response(jsonData, {
