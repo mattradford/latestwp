@@ -12,14 +12,29 @@ export default async (request) => {
 try {
   const ver = await fetchWordPressVersion();
 
-  const data = { ver };
-  const jsonData = JSON.stringify(data);
+  const url = new URL(request.url)
 
-  return new Response(jsonData, {
-      headers: {
-          "Content-Type": "application/json",
-      },
-  });
+  const plain = url.searchParams.get("plain")
+
+  if (plain) {
+
+    return new Response(ver, {
+        headers: {
+            "Content-Type": "text/plain",
+        },
+    });
+  } else {
+    const data = { ver };
+    const jsonData = JSON.stringify(data);
+
+    return new Response(jsonData, {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+  }
+
+
 } catch (error) {
   console.error("An error occurred:", error);
   const errorMessage = "Error: " + error.message;
