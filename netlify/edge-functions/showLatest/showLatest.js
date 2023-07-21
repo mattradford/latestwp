@@ -11,9 +11,8 @@ export default async (request) => {
 
 try {
   const ver = await fetchWordPressVersion();
-
   const url = new URL(request.url)
-
+  console.log(url);
   const plain = url.searchParams.get("plain")
 
   if (plain) {
