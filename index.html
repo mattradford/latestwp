@@ -18,31 +18,20 @@
         <script>
             async function showLatest() {
                 const target = document.getElementsByTagName("span");
-                let ver = "not found";
 
                 try {
                     const response = await fetch("https://api.wordpress.org/core/stable-check/1.0/");
-
-                    if (!response.ok) {
-                        throw new Error("Failed to fetch WordPress versions.");
-                    }
+                    if (!response.ok) throw new Error("Failed to fetch WordPress versions.");
 
                     const versions = await response.json();
-                    const versionsStr = JSON.stringify(versions);
-                    const regex = /"([^"]+)":"latest"/;
-                    const match = versionsStr.match(regex);
+                    const match = JSON.stringify(versions).match(/"([^"]+)":"latest"/);
 
-                    if (match) {
-                        let ver = match[1];
-                        document.title += " " + ver;
-                        target[0].insertAdjacentText("beforeend", ver);
-                    } else {
-                        target[0].insertAdjacentText("beforeend", ver);
-                    }
-
+                    const ver = match ? match[1] : "not found";
+                    document.title += " " + ver;
+                    target[0].insertAdjacentText("beforeend", ver);
                 } catch (error) {
                     console.error("An error occurred:", error);
-                    target[0].insertAdjacentText("beforeend", ver);
+                    target[0].insertAdjacentText("beforeend", "not found");
                 }
             }
             showLatest();
